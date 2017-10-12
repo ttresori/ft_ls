@@ -17,6 +17,7 @@ void	ft_right(struct stat *sts, char *name)
 	int xattr;
 	acl_t acl;
 
+	acl = NULL;
 	ft_putchar((S_ISFIFO(sts->st_mode)) ? 'p' : '\0');
 	ft_putchar((S_ISCHR(sts->st_mode)) ? 'c' : '\0');
 	ft_putchar((S_ISLNK(sts->st_mode)) ? 'l' : '\0');
@@ -40,4 +41,6 @@ void	ft_right(struct stat *sts, char *name)
 		((acl = acl_get_file(name, ACL_TYPE_EXTENDED)) != NULL &&
 		 (!(S_ISLNK(sts->st_mode)))) ? '+' : ' ');
 	ft_putstr("  ");
+	if (acl)
+		acl_free(acl);
 }
