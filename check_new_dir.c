@@ -44,17 +44,20 @@ void	check_new_dir(t_ls *ls)
 	t_list		*new;
 	t_list		*tmpd;
 
-	if (stat(ls_join(ls->dir->content, ls->file->name), &sts) != 0)
-		if (lstat(ls_join(ls->dir->content, ls->file->name), &sts) != 0)
-			return ;
+	if (lstat(ls_join(ls->dir->content, ls->file->name), &sts) != 0)
+		return ;
 	if (S_ISDIR(sts.st_mode) && (!(S_ISLNK(sts.st_mode))))
 	{
 		tmpd = ls->tmp->next;
 		if (!(new = (t_list*)malloc(sizeof(t_list))))
 			return ;
-		if (!(new->content = ft_strdup(ls_join(ls->dir->content, \
-ls->file->name))))
-			return ;
+		if (ft_strcmp(ls->dir->content, "/") == 0)
+		{
+			if (!(new->content = ft_strjoin("/", ls->file->name)))
+				return ;
+		}
+		else if (!(new->content = ls_join(ls->dir->content, ls->file->name)))
+				 return ;
 		ls->tmp->next = new;
 		new->next = tmpd;
 		ls->tmp = new;
