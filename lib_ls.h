@@ -72,4 +72,5 @@ char				*ft_padding_pwn_name(t_ls *ls, struct passwd *user);
 int					ft_padding_size(t_ls *ls, struct stat *sts);
 char				*ft_padding_grp_name(t_ls *ls, struct group *grp);
 int					check_arg(char *name, t_ls *ls);
+
 #endif

@@ -26,7 +26,8 @@ SRC =	main.c \
 		l_info.c	\
 		ft_padding.c \
 		link_print.c \
-		ft_size.c
+		ft_size.c \
+		print_file.c
 
 TMP = $(SRC:.c=.o)
 
