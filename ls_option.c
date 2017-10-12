@@ -133,8 +133,6 @@ int ls_option(t_ls *ls, int a, char **v)
 				detect_option(v[i], ls, error);
 			else if ((add_dir(v[i], ls)) == 0)
 				return (0);
-			else if (check_arg(v[i], ls))
-				error = 0;
 			else
 				error = 1;
 			i++;

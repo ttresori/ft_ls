@@ -91,8 +91,11 @@ int			ls_sort(t_ls *ls, char *dir)
 	ls->l_info[2] = 0;
 	ls->l_info[3] = 0;
 	if (!(rep = opendir(dir)))
-		return (1);
-	if (!(ls->file = sort_dir((rep), ls)))
+		if(check_arg(dir, ls) == -1)
+			return (1);
+		else
+			return (0);
+	else if (!(ls->file = sort_dir((rep), ls)))
 		return (0);
 	closedir(rep);
 	return (1);

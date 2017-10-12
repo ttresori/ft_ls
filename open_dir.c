@@ -34,11 +34,10 @@ int	ls_print_dir(t_ls *ls)
 	struct	stat	sts;
 
 	ls->dir_write = 1;
-	if ((((ls->option['R']) == 1) || (ls->nb_dir > 1)) && (lstat(ls->dir->content, &sts) != 0))
+	if ((((ls->option['R']) == 1) || (ls->nb_dir > 1)))
 	{
 		ft_putstr(ls->dir->content);
 		ft_putendl(":");
-		free(&sts);
 	}
 	if (!(rep = opendir(ls->dir->content)))
 	{

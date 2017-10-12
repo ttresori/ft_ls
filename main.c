@@ -22,12 +22,12 @@ int	main(int a, char **v)
 		return (-1);
 	if (!(ls_option(ls, a, v)))
 		return (-1);
+	ls->dir = sort_opdir(ls);
 	while (ls->dir)
 	{
-		if (!(ls_sort(ls, ls->dir->content)))
-			return (-1);
-		if (ls_print_dir(ls))
-			ls_print(ls);
+		if (ls_sort(ls, ls->dir->content))
+			if (ls_print_dir(ls))
+				ls_print(ls);
 		tmp = ls->dir;
 		ls->dir = ls->dir->next;
 		free(tmp->content);
