@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -16,9 +17,8 @@ int		ft_check_link(char *link, char *dir)
 {
 	struct stat sts;
 
-	if ((stat(ft_strjoin(dir, ft_strjoin("/", link)), &sts)) != 0)
-		if ((lstat(ft_strjoin(dir, ft_strjoin("/", link)), &sts)) != 0)
-			return (0);
+	if ((lstat(ft_strjoin(dir, ft_strjoin("/", link)), &sts)) != 0)
+		return (0);
 	if (S_ISLNK(sts.st_mode))
 	{
 		ft_print_link(ft_strjoin(dir, ft_strjoin("/", link)));

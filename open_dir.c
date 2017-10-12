@@ -19,7 +19,7 @@ int	check_dir(char *arg)
 	if (!(rep = opendir(arg)))
 	{
 		if (errno == 2)
-		  perror(ft_strjoin("ls: ", arg));
+		perror(ft_strjoin("ls: ", arg));
 		return (0);
 	}
 	else
@@ -29,22 +29,29 @@ int	check_dir(char *arg)
 
 int	ls_print_dir(t_ls *ls)
 {
-	DIR		*rep;
-	char	*tmp;
+	DIR				*rep;
+	char			*tmp;
+	struct	stat	sts;
 
 	ls->dir_write = 1;
-	if (((ls->option['R']) == 1) || (ls->nb_dir > 1))
+	if ((((ls->option['R']) == 1) || (ls->nb_dir > 1)) && (lstat(ls->dir->content, &sts) != 0))
 	{
 		ft_putstr(ls->dir->content);
 		ft_putendl(":");
+		free(&sts);
 	}
 	if (!(rep = opendir(ls->dir->content)))
 	{
-		if (!(tmp = ft_strrchr(ls->dir->content, '/')))
-			perror(ft_strjoin("ls: ", ls->dir->content));
+		if (lstat(ls->dir->content, &sts) == 0)
+			return (0);
+		else
+		{
+			if (!(tmp = ft_strrchr(ls->dir->content, '/')))
+				perror(ft_strjoin("ls: ", ls->dir->content));
 			else
-			perror(ft_strjoin("ls: ", tmp + 1));
-		return (0);
+				perror(ft_strjoin("ls: ", tmp + 1));
+			return (0);
+		}
 	}
 	if (ls->option['l'] == 1)
 		ft_print_blocks(ls);

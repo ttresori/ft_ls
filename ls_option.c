@@ -73,13 +73,14 @@ int		stock_error(t_ls *ls, char *arg)
 
 int		add_dir(char *arg, t_ls *ls)
 {
-	t_list	*new;
-	t_list	*prev;
+	t_list			*new;
+	t_list			*prev;
+	struct	stat	sts;
 
 	ls->nb_dir = ls->nb_dir + 1;
-	if ((check_dir(arg)) == 0)
+	if ((check_dir(arg)) == 0 && (lstat(arg, &sts) != 0))
 		return (stock_error(ls, arg));
-	prev = NULL;
+		prev = NULL;
 	new = NULL;
 	new = ls->dir;
 	while (new)
@@ -113,19 +114,20 @@ t_list	*dir_default(void)
 	new->content_size = 1;
 	return (new);
 }
-
 void	print_no_dir(char *name, t_ls *ls)
 {
 	if (ls->option['l'] == 1)
 	{
 		ft_date(name, ls);
+		ft_putchar(' ');
+		ft_putstr(name);
 		ft_putchar('\n');
 	}
 	else
 		ft_putendl(name);
 }
 
-int		check_arg(char *name, t_ls *ls)
+int	check_arg(char *name, t_ls *ls)
 {
 	struct stat sts;
 

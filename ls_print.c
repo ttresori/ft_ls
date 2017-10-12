@@ -21,9 +21,9 @@ void	ls_help_print(t_ls *ls)
 	if (ls->option['l'] == 1)
 			ft_date((ft_strjoin(ls->dir->content, \
 				ft_strjoin("/" ,ls->file->name))), ls);
-	if (((ls->option['l']) == 0) || (!(ft_check_link(ls->file->name, \
-		ls->dir->content))))
-	ft_putendl(ls->file->name);	
+	if (((ls->option['l']) == 0) || (!(ft_check_link(ls->file->name,	\
+													 ls->dir->content))))
+		ft_putendl(ls->file->name);
 }
 
 void	ls_print(t_ls *ls)
