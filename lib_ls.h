@@ -74,5 +74,5 @@ char				*ft_padding_grp_name(t_ls *ls, struct group *grp);
 int					check_arg(char *name, t_ls *ls);
 t_list 				*sort_opdir(t_ls *ls);
 t_list				 *sort_dir_t(t_ls *ls);
-int					check_link_dossier(char *file_link);
+int					check_link_dossier(char *file_link, t_ls *ls);
 #endif

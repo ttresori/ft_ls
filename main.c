@@ -17,6 +17,7 @@ int	main(int a, char **v)
 	t_ls			*ls;
 	t_list			*tmp;
 
+
 	ls = NULL;
 	if (!(ls = (t_ls*)malloc(sizeof(t_ls))))
 		return (-1);
@@ -25,10 +26,15 @@ int	main(int a, char **v)
 	ls->dir = sort_opdir(ls);
 	while (ls->dir)
 	{
-		if (check_link_dossier(ls->dir->content) == 1)
-			ls->dir = ls->dir->next;
+		if (check_link_dossier(ls->dir->content, ls) == 1)
+		{
+			if (ls->dir->next != NULL)
+				ls->dir = ls->dir->next;
+			else
+				return(0);
+		}
 		if (ls_sort(ls, ls->dir->content))
-			if (ls_print_dir(ls))
+				if (ls_print_dir(ls))
 				ls_print(ls);
 		tmp = ls->dir;
 		ls->dir = ls->dir->next;

@@ -35,7 +35,9 @@ TMP = $(SRC:.c=.o)
 
 LIB = libft/libft.a
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc
+
+FLAGS = -Wall -Wextra -Werror
 
 .PHONY : all clean fclean re
 
@@ -51,6 +53,11 @@ $(LIB):
 clean:
 	rm -f $(TMP)
 	make -C libft clean
+
+noflags: $(LIB) $(SRC)
+	$(CC) -c $(SRC) -I . -I ./libft
+	$(CC) $(TMP) -o $(NAME)  -L ./libft -lft -I . -I ./libft/
+
 
 fclean: clean
 	rm -f $(NAME)
