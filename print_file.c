@@ -16,6 +16,7 @@ int check_arg(char *name, t_ls *ls)
 {
 	struct stat sts;
 
+	ft_putstr("OK");
 	if (lstat(name, &sts) != 0)
 		return (0);
 	if (!(S_ISDIR(sts.st_mode)))

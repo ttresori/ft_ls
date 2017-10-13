@@ -25,6 +25,8 @@ int	main(int a, char **v)
 	ls->dir = sort_opdir(ls);
 	while (ls->dir)
 	{
+		if (check_link_dossier(ls->dir->content) == 1)
+			ls->dir = ls->dir->next;
 		if (ls_sort(ls, ls->dir->content))
 			if (ls_print_dir(ls))
 				ls_print(ls);

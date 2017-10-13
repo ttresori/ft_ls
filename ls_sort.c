@@ -82,6 +82,27 @@ t_lstd		*sort_dir(DIR *rep, t_ls *ls)
 	return (bgn);
 }
 
+int			check_link_dossier(char *file_link)
+{
+	struct stat sts;
+	char		*tmp;
+	int 		len;
+
+
+	len = ft_strlen(file_link);
+	tmp = ft_strndup(file_link, len);
+	if(lstat(tmp, &sts) != 0)
+		return (-1);
+	if(!(S_ISLNK(sts.st_mode)))
+	   return (-1);
+	else
+	{
+		ft_print_link(tmp);
+		return(1);
+	}
+	return(0);
+}
+
 int			ls_sort(t_ls *ls, char *dir)
 {
 	DIR				*rep;
@@ -91,12 +112,16 @@ int			ls_sort(t_ls *ls, char *dir)
 	ls->l_info[2] = 0;
 	ls->l_info[3] = 0;
 	if (!(rep = opendir(dir)))
+	{
 		if(check_arg(dir, ls) == -1)
 			return (1);
 		else
 			return (0);
+	}
 	else if (!(ls->file = sort_dir((rep), ls)))
 		return (0);
+	/*else if (!(check_link_dossier(ls->dir->content)))
+	  ft_putstr("OK");*/
 	closedir(rep);
 	return (1);
 }
