@@ -23,7 +23,11 @@ void	ls_help_print(t_ls *ls)
 				ft_strjoin("/" ,ls->file->name))), ls);
 	if (((ls->option['l']) == 0) || (!(ft_check_link(ls->file->name,	\
 													 ls->dir->content))))
+	{
+//		ft_putstr(RED);
 		ft_putendl(ls->file->name);
+		//	ft_putstr(NORMAL);
+	}
 }
 
 void	ls_print(t_ls *ls)

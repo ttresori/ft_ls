@@ -24,6 +24,16 @@
 # include <sys/xattr.h>
 # include <sys/acl.h>
 
+# define BLACK "\033[1;30m"
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[1;34m"
+# define PURPLE "\033[1;35m"
+# define CYAN "\033[1;36m"
+# define GREY "\033[1;37m"
+# define NORMAL "\033[0m"
+
 typedef struct		s_lstd
 {
 	char			*name;
@@ -67,7 +77,7 @@ int					ls_file_dir(char *name);
 void				check_new_dir(t_ls *ls);
 void				ft_right(struct stat *sts, char *name);
 int					ft_stockmax(t_ls *ls, char *name);
-int					check_dir(char *arg);
+int					check_dir(char *arg, t_ls *ls);
 char				*ft_padding_pwn_name(t_ls *ls, struct passwd *user);
 int					ft_padding_size(t_ls *ls, struct stat *sts);
 char				*ft_padding_grp_name(t_ls *ls, struct group *grp);
@@ -75,4 +85,6 @@ int					check_arg(char *name, t_ls *ls);
 t_list 				*sort_opdir(t_ls *ls);
 t_list				 *sort_dir_t(t_ls *ls);
 int					check_link_dossier(char *file_link, t_ls *ls);
+int					stock_error(t_ls *ls, char *arg);
+
 #endif

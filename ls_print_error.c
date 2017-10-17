@@ -16,7 +16,6 @@ void	ls_print_error(t_ls *ls)
 {
 	while (ls->error)
 	{
-		ft_putchar('\n');
 		ft_putstr(ls->error->content);
 		ft_putendl(":");
 		errno = ls->error->content_size;

@@ -17,22 +17,26 @@ int check_link_dossier(char *file_link, t_ls *ls)
 	struct stat sts;
 	char *tmp;
 
-
-	tmp = ft_strndup(file_link, ft_strlen(file_link));
+	if (!(tmp = ft_strndup(file_link, ft_strlen(file_link))))
+		return (-1);;
 	if(ft_strchr(tmp, '/') == NULL)
 	{
 		ft_memdel((void**)&tmp);
 		tmp = ft_strjoin("./", file_link);
 	}
 	if(lstat(tmp, &sts) != 0)
-		return (-1);
+		return (2);
 	if(!(S_ISLNK(sts.st_mode)))
-		return (-1);
+		return (2);
 	else
 	{
 		if (ls->option['l'] == 1)
+		{
 			ft_date(tmp, ls);
-		ft_print_link(tmp);
+			ft_print_link(tmp);
+		}
+		else
+			return(2);
 		return(1);
 	}
 	return(0);

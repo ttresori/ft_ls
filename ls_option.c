@@ -21,7 +21,7 @@ int		detect_option(char *arg, t_ls *ls, int error)
 	tmp = 0;
 	if (error == 1)
 	{
-		check_dir(arg);
+		check_dir(arg, ls);
 		return (0);
 	}
 	while (arg[i] != '\0')
@@ -78,9 +78,9 @@ int		add_dir(char *arg, t_ls *ls)
 	struct	stat	sts;
 
 	ls->nb_dir = ls->nb_dir + 1;
-	if ((check_dir(arg)) == 0 && (lstat(arg, &sts) != 0))
+	if ((check_dir(arg, ls)) == 0 && (lstat(arg, &sts) != 0))
 		return (stock_error(ls, arg));
-		prev = NULL;
+	prev = NULL;
 	new = NULL;
 	new = ls->dir;
 	while (new)

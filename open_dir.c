@@ -12,17 +12,22 @@
 
 #include "lib_ls.h"
 
-int	check_dir(char *arg)
+int	check_dir(char *arg, t_ls *ls)
 {
 	DIR	*rep;
 
 	if (!(rep = opendir(arg)))
 	{
-		if (errno == 2)
-		perror(ft_strjoin("ls: ", arg));
+		if (errno != 2)
+			stock_error(ls, arg);
+		else
+		{
+			perror(ft_strjoin("ls: ", arg));
+		}
 		return (0);
 	}
 	else
+
 		closedir(rep);
 	return (1);
 }
