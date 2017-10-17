@@ -54,7 +54,7 @@ typedef struct		s_ls
 	t_list			*error;
 }					t_ls;
 
-void				ls_print_error(t_ls *ls);
+void				ls_print_error(t_list *error);
 void				free_ls(t_ls *ls);
 int					ls_option(t_ls *ls, int a, char **v);
 t_list				*dir_default();
@@ -86,5 +86,6 @@ t_list 				*sort_opdir(t_ls *ls);
 t_list				 *sort_dir_t(t_ls *ls);
 int					check_link_dossier(char *file_link, t_ls *ls);
 int					stock_error(t_ls *ls, char *arg);
+t_list				*sort_error(t_list *bgn);
 
 #endif

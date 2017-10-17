@@ -29,7 +29,8 @@ SRC =	main.c \
 		ft_size.c \
 		print_file.c \
 		sort_dir.c \
-		sort_dir_t.c
+		sort_dir_t.c \
+		sort_error.c
 
 TMP = $(SRC:.c=.o)
 

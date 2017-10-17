@@ -12,15 +12,15 @@
 
 #include "lib_ls.h"
 
-void	ls_print_error(t_ls *ls)
+void	ls_print_error(t_list *error)
 {
-	while (ls->error)
+	while (error)
 	{
-		ft_putstr(ls->error->content);
+		ft_putstr(error->content);
 		ft_putendl(":");
-		errno = ls->error->content_size;
-		perror(ft_strjoin("ls: ", ls->error->content));
-		ls->error = ls->error->next;
+		errno = error->content_size;
+		perror(ft_strjoin("ls: ", error->content));
+		error = error->next;
 		return ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: carmand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 02:29:55 by carmand           #+#    #+#             */
-/*   Updated: 2017/09/29 16:59:02 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/17 04:17:29 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int a, char **v)
 		free(tmp);
 		ls->dir = ls->dir->next;
 	}
-	ls_print_error(ls);
+	sort_error(ls->error);
 	free_ls(ls);
 	return (0);
 }

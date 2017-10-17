@@ -12,25 +12,26 @@
 
 #include "lib_ls.h"
 
-void	ls_help_print(t_ls *ls)
+#include "lib_ls.h"
+
+void ls_help_print(t_ls *ls)
 {
 	if ((ls->option['R'] == 1)
-	&& (ft_strcmp(ls->file->name, ".") != 0)
-	&& (ft_strcmp(ls->file->name, "..") != 0))
-					check_new_dir(ls);
+		&& (ft_strcmp(ls->file->name, ".") != 0)
+		&& (ft_strcmp(ls->file->name, "..") != 0))
+		check_new_dir(ls);
 	if (ls->option['l'] == 1)
-			ft_date((ft_strjoin(ls->dir->content, \
-				ft_strjoin("/" ,ls->file->name))), ls);
-	if (((ls->option['l']) == 0) || (!(ft_check_link(ls->file->name,	\
-													 ls->dir->content))))
 	{
-//		ft_putstr(RED);
-		ft_putendl(ls->file->name);
-		//	ft_putstr(NORMAL);
+		ft_date((ft_strjoin(ls->dir->content, \
+							ft_strjoin("/" ,ls->file->name))), ls);
+		if (!(ft_check_link(ls->file->name, ls->dir->content)))
+			ft_putendl(ls->file->name);
+		return ;
 	}
+	ft_putendl(ls->file->name);
 }
 
-void	ls_print(t_ls *ls)
+void ls_print(t_ls *ls)
 {
 	ls->tmp = ls->dir;
 	if (ls->option['r'] == 1)

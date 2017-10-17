@@ -21,9 +21,7 @@ int	check_dir(char *arg, t_ls *ls)
 		if (errno != 2)
 			stock_error(ls, arg);
 		else
-		{
 			perror(ft_strjoin("ls: ", arg));
-		}
 		return (0);
 	}
 	else
