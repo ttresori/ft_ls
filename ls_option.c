@@ -6,7 +6,7 @@
 /*   By: carmand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 22:06:45 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/11 18:48:42 by carmand          ###   ########.fr       */
+/*   Updated: 2017/10/17 04:48:42 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,19 @@ int		stock_error(t_ls *ls, char *arg)
 	new = NULL;
 	tmp = NULL;
 	opendir(arg);
-	if (errno != 2)
+	if (!(new = (t_list*)malloc(sizeof(t_list))))
+		return (0);
+	new->content = ft_strdup(arg);
+	new->content_size = errno;
+	new->next = NULL;
+	if (ls->error == NULL)
+		ls->error = new;
+	else
 	{
-		if (!(new = (t_list*)malloc(sizeof(t_list))))
-			return (0);
-		new->content = ft_strdup(arg);
-		new->content_size = errno;
-		if (ls->error == NULL)
-			ls->error = new;
-		else
-		{
-			tmp = ls->error;
-			ls->error = new;
-			new->next = tmp;
-		}
+		tmp = ls->error;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
 	return (1);
 }
@@ -79,7 +78,7 @@ int		add_dir(char *arg, t_ls *ls)
 
 	ls->nb_dir = ls->nb_dir + 1;
 	if ((check_dir(arg, ls)) == 0 && (lstat(arg, &sts) != 0))
-		return (stock_error(ls, arg));
+		return (42);
 	prev = NULL;
 	new = NULL;
 	new = ls->dir;

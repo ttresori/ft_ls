@@ -6,7 +6,7 @@
 /*   By: carmand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 02:29:55 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/17 04:17:29 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/17 05:29:03 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(int a, char **v)
 	if (!(ls_option(ls, a, v)))
 		return (-1);
 	ls->dir = sort_opdir(ls);
+	ls->nodir = sort_error(ls->nodir);
+	ls_print_error_dir(ls->nodir);
 	while (ls->dir)
 	{
 		if (check_link_dossier(ls->dir->content, ls) == 2)
@@ -34,7 +36,8 @@ int	main(int a, char **v)
 		free(tmp);
 		ls->dir = ls->dir->next;
 	}
-	sort_error(ls->error);
+	ls->error = sort_error(ls->error);
+	ls_print_error(ls->error);
 	free_ls(ls);
 	return (0);
 }

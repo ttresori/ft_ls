@@ -6,7 +6,7 @@
 /*   By: ttresori <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 17:41:31 by ttresori          #+#    #+#             */
-/*   Updated: 2017/09/29 17:41:34 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/17 06:20:28 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int check_link_dossier(char *file_link, t_ls *ls)
 {
-	struct stat sts;
-	char *tmp;
+	struct stat	sts;
+	char		*tmp;
+//	int			i;
 
 	if (!(tmp = ft_strndup(file_link, ft_strlen(file_link))))
 		return (-1);;
@@ -27,7 +28,11 @@ int check_link_dossier(char *file_link, t_ls *ls)
 	if(lstat(tmp, &sts) != 0)
 		return (2);
 	if(!(S_ISLNK(sts.st_mode)))
+	{
+//		i = ft_strlen(file_link) - 1;	
+//		file_link[i] = (file_link[i] = '/') ? '\0' : file_link[i];
 		return (2);
+	}
 	else
 	{
 		if (ls->option['l'] == 1)

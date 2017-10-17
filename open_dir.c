@@ -6,7 +6,7 @@
 /*   By: carmand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 07:09:43 by carmand           #+#    #+#             */
-/*   Updated: 2017/09/29 16:59:31 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/17 05:25:07 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ int	check_dir(char *arg, t_ls *ls)
 		if (errno != 2)
 			stock_error(ls, arg);
 		else
-			perror(ft_strjoin("ls: ", arg));
+			stock_error_dir(ls, arg);
 		return (0);
 	}
 	else
-
 		closedir(rep);
 	return (1);
 }

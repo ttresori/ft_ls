@@ -6,7 +6,7 @@
 /*   By: ttresori <ttresori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 02:30:06 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/06 21:58:16 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/17 05:27:39 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ typedef struct		s_ls
 	int				nb_dir;
 	size_t			l_info[4];
 	t_list			*error;
+	t_list			*nodir;
 }					t_ls;
 
+void				ls_print_error_dir(t_list *error);
+int					stock_error_dir(t_ls *ls, char *arg);
 void				ls_print_error(t_list *error);
 void				free_ls(t_ls *ls);
 int					ls_option(t_ls *ls, int a, char **v);
