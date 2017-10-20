@@ -6,13 +6,13 @@
 /*   By: ttresori <ttresori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 07:09:43 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/17 05:45:38 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/20 00:20:25 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_ls.h"
 
-void ls_help_print(t_ls *ls)
+void	ls_help_print(t_ls *ls)
 {
 	if ((ls->option['R'] == 1)
 		&& (ft_strcmp(ls->file->name, ".") != 0)
@@ -21,7 +21,7 @@ void ls_help_print(t_ls *ls)
 	if (ls->option['l'] == 1)
 	{
 		ft_date((ft_strjoin(ls->dir->content, \
-							ft_strjoin("/" ,ls->file->name))), ls);
+							ft_strjoin("/", ls->file->name))), ls);
 		if (!(ft_check_link(ls->file->name, ls->dir->content)))
 			ft_putendl(ls->file->name);
 		return ;
@@ -29,11 +29,11 @@ void ls_help_print(t_ls *ls)
 	ft_putendl(ls->file->name);
 }
 
-void ls_print(t_ls *ls)
+void	ls_print(t_ls *ls)
 {
 	ls->tmp = ls->dir;
 	if (ls->option['r'] == 1)
-		while(ls->file->next)
+		while (ls->file->next)
 			ls->file = ls->file->next;
 	while (ls->file)
 	{
@@ -46,4 +46,5 @@ void ls_print(t_ls *ls)
 	}
 	if (ls->dir->next)
 		ft_putchar('\n');
+	ls_print_error_grandr(ls->R_error);
 }

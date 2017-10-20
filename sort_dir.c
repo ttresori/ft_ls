@@ -29,7 +29,7 @@ t_list	*add_one(t_list *last, char *str)
 t_list	*remake_list(char **moche)
 {
 	t_list	*new;
-	t_list 	*tmp;
+	t_list	*tmp;
 	int		i;
 
 	new = NULL;
@@ -51,9 +51,9 @@ t_list	*remake_list(char **moche)
 }
 
 t_list	*sort_dir_r(t_ls *ls)
-{	
+{
 	t_list	*tmp;
-	int 	i;
+	int		i;
 	char	**moche;
 	int		j;
 

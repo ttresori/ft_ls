@@ -27,10 +27,10 @@ t_list	*add_name_t(t_list *dir, t_list *nxt, t_list *prv)
 	return (new);
 }
 
-long    r_time_t(char *d_name)
+long	r_time_t(char *d_name)
 {
-	long            t;
-	struct stat     sts;
+	long			t;
+	struct stat		sts;
 
 	t = 0;
 	lstat(d_name, &sts);
@@ -38,7 +38,7 @@ long    r_time_t(char *d_name)
 	return (t);
 }
 
-t_list *fill_new_t(t_list *bgn, t_list *dir)
+t_list	*fill_new_t(t_list *bgn, t_list *dir)
 {
 	t_list	*tmp;
 
@@ -51,15 +51,14 @@ t_list *fill_new_t(t_list *bgn, t_list *dir)
 	}
 	while (bgn->next)
 	{
-		//ft_putstr(bgn->content);
 		if ((((r_time_t(dir->content)) <= (r_time_t(bgn->content)))
-			&& (((r_time_t(dir->content)) > (r_time_t(bgn->next->content))))))
+	&& (((r_time_t(dir->content)) > (r_time_t(bgn->next->content))))))
 			break ;
 		else
 			bgn = bgn->next;
 	}
-		if (!(bgn = add_name_t(dir, bgn->next, bgn)))
-			return (NULL);
+	if (!(bgn = add_name_t(dir, bgn->next, bgn)))
+		return (NULL);
 	return (tmp);
 }
 

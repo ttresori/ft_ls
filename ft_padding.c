@@ -24,17 +24,6 @@ void	cut_padding_nb(t_ls *ls, int *i, int *space, int nb_dir)
 	return ;
 }
 
-/*int		ft_padding_nb(t_ls *ls, char *name, struct stat *sts)
-{
-	int				i;
-	int				space;
-
-	ft_putnbr(sts->st_nlink);
-	//cut_padding_nb(ls, &i, &space, nb_dir);
-	//ft_print_space(space + 1);
-	return (sts->st_nlink);
-}*/
-
 char	*ft_padding_pwn_name(t_ls *ls, struct passwd *user)
 {
 	size_t size;

@@ -30,7 +30,8 @@ SRC =	main.c \
 		print_file.c \
 		sort_dir.c \
 		sort_dir_t.c \
-		sort_error.c
+		sort_error.c \
+		help_ls_option.c
 
 TMP = $(SRC:.c=.o)
 

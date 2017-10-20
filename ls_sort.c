@@ -12,7 +12,7 @@
 
 #include "lib_ls.h"
 
-t_lstd		*add_name(char *d_name, t_lstd *nxt, t_lstd *prv)
+t_lstd	*add_name(char *d_name, t_lstd *nxt, t_lstd *prv)
 {
 	t_lstd	*new;
 
@@ -30,7 +30,7 @@ t_lstd		*add_name(char *d_name, t_lstd *nxt, t_lstd *prv)
 	return (new);
 }
 
-t_lstd		*fill_new(t_lstd *bgn, char *d_name, t_ls *ls)
+t_lstd	*fill_new(t_lstd *bgn, char *d_name, t_ls *ls)
 {
 	ft_stockmax(ls, ft_strjoin(ls->dir->content, ft_strjoin("/", d_name)));
 	if (ls->option['t'] == 1)
@@ -59,7 +59,7 @@ t_lstd		*fill_new(t_lstd *bgn, char *d_name, t_ls *ls)
 	return (bgn);
 }
 
-t_lstd		*sort_dir(DIR *rep, t_ls *ls)
+t_lstd	*sort_dir(DIR *rep, t_ls *ls)
 {
 	struct dirent	*ent;
 	t_lstd			*bgn;
@@ -82,7 +82,7 @@ t_lstd		*sort_dir(DIR *rep, t_ls *ls)
 	return (bgn);
 }
 
-int			ls_sort(t_ls *ls, char *dir)
+int		ls_sort(t_ls *ls, char *dir)
 {
 	DIR				*rep;
 
@@ -92,7 +92,7 @@ int			ls_sort(t_ls *ls, char *dir)
 	ls->l_info[3] = 0;
 	if (!(rep = opendir(dir)))
 	{
-		if(check_arg(dir, ls) == -1)
+		if (check_arg(dir, ls) == -1)
 			return (1);
 		else
 			return (0);

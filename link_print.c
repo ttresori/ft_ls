@@ -12,27 +12,22 @@
 
 #include "lib_ls.h"
 
-int check_link_dossier(char *file_link, t_ls *ls)
+int		check_link_dossier(char *file_link, t_ls *ls)
 {
 	struct stat	sts;
 	char		*tmp;
-//	int			i;
 
 	if (!(tmp = ft_strndup(file_link, ft_strlen(file_link))))
-		return (-1);;
-	if(ft_strchr(tmp, '/') == NULL)
+		return (-1);
+	if (ft_strchr(tmp, '/') == NULL)
 	{
 		ft_memdel((void**)&tmp);
 		tmp = ft_strjoin("./", file_link);
 	}
-	if(lstat(tmp, &sts) != 0)
+	if (lstat(tmp, &sts) != 0)
 		return (2);
-	if(!(S_ISLNK(sts.st_mode)))
-	{
-//		i = ft_strlen(file_link) - 1;	
-//		file_link[i] = (file_link[i] = '/') ? '\0' : file_link[i];
+	if (!(S_ISLNK(sts.st_mode)))
 		return (2);
-	}
 	else
 	{
 		if (ls->option['l'] == 1)
@@ -41,10 +36,9 @@ int check_link_dossier(char *file_link, t_ls *ls)
 			ft_print_link(tmp);
 		}
 		else
-			return(2);
-		return(1);
+			return (2);
+		return (1);
 	}
-	return(0);
 }
 
 int		ft_check_link(char *link, char *dir)
@@ -74,7 +68,7 @@ void	ft_print_link(char *link)
 		return ;
 	tmp[len] = '\0';
 	if (!(cut = ft_strchr(link, '/')))
-		return ;;
+		return ;
 	tmp2 = cut;
 	while (tmp2)
 	{

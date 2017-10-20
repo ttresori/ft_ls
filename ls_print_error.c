@@ -60,3 +60,16 @@ void	ls_print_error(t_list *error)
 		error = error->next;
 	}
 }
+
+void	ls_print_error_grandr(t_list *error)
+{
+	while (error)
+	{
+		ft_putstr_fd(error->content, 2);
+		ft_putendl_fd(":", 2);
+		errno = error->content_size;
+		perror(ft_strjoin("ls: ", error->content));
+		error = error->next;
+		ft_putchar_fd('\n', 2);
+	}
+}

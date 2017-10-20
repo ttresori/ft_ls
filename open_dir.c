@@ -12,7 +12,7 @@
 
 #include "lib_ls.h"
 
-int	check_dir(char *arg, t_ls *ls)
+int		check_dir(char *arg, t_ls *ls)
 {
 	DIR	*rep;
 
@@ -29,18 +29,23 @@ int	check_dir(char *arg, t_ls *ls)
 	return (1);
 }
 
-int	ls_print_dir(t_ls *ls)
+void	help_ls_print(t_ls *ls)
 {
-	DIR				*rep;
-	char			*tmp;
-	struct	stat	sts;
-
-	ls->dir_write = 1;
 	if ((((ls->option['R']) == 1) || (ls->nb_dir > 1)))
 	{
 		ft_putstr(ls->dir->content);
 		ft_putendl(":");
 	}
+}
+
+int		ls_print_dir(t_ls *ls)
+{
+	DIR				*rep;
+	char			*tmp;
+	struct stat		sts;
+
+	ls->dir_write = 1;
+	help_ls_print(ls);
 	if (!(rep = opendir(ls->dir->content)))
 	{
 		if (lstat(ls->dir->content, &sts) == 0)

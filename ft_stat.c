@@ -40,14 +40,30 @@ int		ft_date_before_year(struct stat *sts, time_t actualtime)
 	return (0);
 }
 
+void	help_date(t_ls *ls, struct group *grp, struct stat *sts)
+{
+	time_t	actualtime;
+
+	actualtime = time(0);
+	if ((grp = getgrgid(sts->st_gid)) != NULL)
+		ft_putstrspace(ft_padding_grp_name(ls, grp));
+	if (S_ISCHR(sts->st_mode))
+		ft_major(sts, ls);
+	else
+		ft_putnbr(ft_padding_size(ls, sts));
+	ft_print_space(1);
+	if ((actualtime - 15778463) > sts->st_mtime || actualtime < sts->st_mtime)
+		ft_date_before_year(sts, actualtime);
+	else
+		ft_startstop(ctime(&sts->st_mtime), 4,
+	ft_strlen(ctime(&sts->st_mtime)) - 9);
+}
+
 int		ft_date(char *name, t_ls *ls)
 {
 	struct stat		sts;
 	struct group	*grp;
 	struct passwd	*user;
-	time_t			actualtime;
-
-	actualtime = time(0);
 
 	errno = 0;
 	grp = NULL;
@@ -63,18 +79,7 @@ int		ft_date(char *name, t_ls *ls)
 		ft_putchar(' ');
 		ft_putnbrspace(sts.st_uid);
 	}
-		if ((grp = getgrgid(sts.st_gid)) != NULL)
-			ft_putstrspace(ft_padding_grp_name(ls, grp));
-	if (S_ISCHR(sts.st_mode))
-		ft_major(&sts, ls);
-	else
-		ft_putnbr(ft_padding_size(ls, &sts));
-	ft_print_space(1);
-	if ((actualtime - 15778463) > sts.st_mtime || actualtime < sts.st_mtime)
-		ft_date_before_year(&sts, actualtime);
-	else
-		ft_startstop(ctime(&sts.st_mtime), 4, ft_strlen(ctime(&sts.st_mtime)) - 9);
+	help_date(ls, grp, &sts);
 	ft_putchar(' ');
 	return (1);
 }
-

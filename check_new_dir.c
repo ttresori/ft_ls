@@ -38,29 +38,67 @@ char	*ls_join(const char *s1, const char *s2)
 	return (new);
 }
 
-void	check_new_dir(t_ls *ls)
+int		stock_error_grandr(t_ls *ls, char *arg)
 {
-	struct stat sts;
+	t_list	*new;
+	t_list	*tmp;
+	int		errno;
+
+	errno = 0;
+	new = NULL;
+	tmp = NULL;
+	opendir(arg);
+	if (!(new = (t_list*)malloc(sizeof(t_list))))
+		return (0);
+	new->content = ft_strdup(arg);
+	new->content_size = errno;
+	new->next = NULL;
+	if (ls->R_error == NULL)
+		ls->R_error = new;
+	else
+	{
+		tmp = ls->R_error;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	return (1);
+}
+
+void	help_check_new_dir(t_ls *ls)
+{
 	t_list		*new;
 	t_list		*tmpd;
+	DIR			*rep;
+
+	if (!(rep = opendir(ls_join(ls->dir->content, ls->file->name))))
+	{
+		stock_error_grandr(ls, ls_join(ls->dir->content, ls->file->name));
+		return ;
+	}
+	closedir(rep);
+	tmpd = ls->tmp->next;
+	if (!(new = (t_list*)malloc(sizeof(t_list))))
+		return ;
+	if (ft_strcmp(ls->dir->content, "/") == 0)
+	{
+		if (!(new->content = ft_strjoin("/", ls->file->name)))
+			return ;
+	}
+	else if (!(new->content = ls_join(ls->dir->content, ls->file->name)))
+		return ;
+	ls->tmp->next = new;
+	new->next = tmpd;
+	ls->tmp = new;
+}
+
+void	check_new_dir(t_ls *ls)
+{
+	struct stat	sts;
 
 	if (lstat(ls_join(ls->dir->content, ls->file->name), &sts) != 0)
 		return ;
 	if (S_ISDIR(sts.st_mode) && (!(S_ISLNK(sts.st_mode))))
-	{
-		tmpd = ls->tmp->next;
-		if (!(new = (t_list*)malloc(sizeof(t_list))))
-			return ;
-		if (ft_strcmp(ls->dir->content, "/") == 0)
-		{
-			if (!(new->content = ft_strjoin("/", ls->file->name)))
-				return ;
-		}
-		else if (!(new->content = ls_join(ls->dir->content, ls->file->name)))
-				 return ;
-		ls->tmp->next = new;
-		new->next = tmpd;
-		ls->tmp = new;
-	}
+		help_check_new_dir(ls);
 	return ;
 }
