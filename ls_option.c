@@ -6,30 +6,24 @@
 /*   By: carmand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 22:06:45 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/20 00:13:11 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/23 19:50:07 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_ls.h"
 
-static int	if_error_one(char *arg, t_ls *ls, int error)
+int		detect_option(char *arg, t_ls *ls, int error)
 {
-	if (error == 1)
-	{
-		check_dir(arg, ls);
-		return (0);
-	}
-	return (0);
-}
-
-int			detect_option(char *arg, t_ls *ls, int error)
-{
-	int	i;
-	int	tmp;
+	int 	i;
+	int 	tmp;
 
 	i = 1;
 	tmp = 0;
-	if_error_one(arg, ls, error);
+	if (error == 1)
+	{
+		stock_error(ls ,arg);
+		return (0);
+	}
 	while (arg[i] != '\0')
 	{
 		if (ft_strchr((const char*)ls->option_enable, arg[i]) != NULL)
@@ -49,29 +43,51 @@ int			detect_option(char *arg, t_ls *ls, int error)
 	return (1);
 }
 
-t_list		*return_new(t_list *new, t_list *prev)
+int		stock_error(t_ls *ls, char *arg)
 {
+	t_list	*new;
+	t_list	*tmp;
+	int		errno;
+
+	errno = 0;
+	new = NULL;
+	tmp = NULL;
+	opendir(arg);
+	if (errno != 2)
+	{
+		if (!(new = (t_list*)malloc(sizeof(t_list))))
+			return (0);
+		new->content = ft_strdup(arg);
+		new->content_size = errno;
+		if (ls->error == NULL)
+			ls->error = new;
+		else
+		{
+			tmp = ls->error;
+			ls->error = new;
+			new->next = tmp;
+		}
+	}
+	return (1);
+}
+
+int		add_dir(char *arg, t_ls *ls)
+{
+	t_list			*new;
+	t_list			*prev;
+	struct	stat	sts;
+
+	ls->nb_dir = ls->nb_dir + 1;
+	if ((check_dir(arg)) == 0 && (lstat(arg, &sts) != 0))
+		return (stock_error(ls, arg));
+		prev = NULL;
+	new = NULL;
+	new = ls->dir;
 	while (new)
 	{
 		prev = new;
 		new = new->next;
 	}
-	return (new);
-}
-
-int			add_dir(char *arg, t_ls *ls)
-{
-	t_list			*new;
-	t_list			*prev;
-	struct stat		sts;
-
-	ls->nb_dir = ls->nb_dir + 1;
-	if ((check_dir(arg, ls)) == 0 && (lstat(arg, &sts) != 0))
-		return (42);
-	prev = NULL;
-	new = NULL;
-	new = ls->dir;
-	new = return_new(new, prev);
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (0);
 	if (prev)
@@ -85,7 +101,21 @@ int			add_dir(char *arg, t_ls *ls)
 	return (1);
 }
 
-int			ls_option(t_ls *ls, int a, char **v)
+t_list	*dir_default(void)
+{
+	t_list *new;
+
+	new = NULL;
+	if (!(new = (t_list*)malloc(sizeof(t_list))))
+		return (NULL);
+	if (!(new->content = ft_strdup(".")))
+		return (NULL);
+	new->next = NULL;
+	new->content_size = 1;
+	return (new);
+}
+
+int ls_option(t_ls *ls, int a, char **v)
 {
 	int i;
 	int error;
@@ -93,6 +123,8 @@ int			ls_option(t_ls *ls, int a, char **v)
 	error = 0;
 	ls->option_enable = ft_strdup("larRt");
 	ls->dir = NULL;
+	ls->nodir = NULL;
+	ls->error = NULL;
 	ls->nb_dir = 0;
 	ls->dir_write = -1;
 	if (a > 0)

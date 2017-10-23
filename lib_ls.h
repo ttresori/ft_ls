@@ -6,7 +6,7 @@
 /*   By: ttresori <ttresori@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/04 02:30:06 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/20 00:19:39 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/23 19:45:46 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int					ls_file_dir(char *name);
 void				check_new_dir(t_ls *ls);
 void				ft_right(struct stat *sts, char *name);
 int					ft_stockmax(t_ls *ls, char *name);
-int					check_dir(char *arg, t_ls *ls);
+int					check_dir(char *arg);
 char				*ft_padding_pwn_name(t_ls *ls, struct passwd *user);
 int					ft_padding_size(t_ls *ls, struct stat *sts);
 char				*ft_padding_grp_name(t_ls *ls, struct group *grp);

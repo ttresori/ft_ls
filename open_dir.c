@@ -6,22 +6,21 @@
 /*   By: carmand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 07:09:43 by carmand           #+#    #+#             */
-/*   Updated: 2017/10/17 05:25:07 by ttresori         ###   ########.fr       */
+/*   Updated: 2017/10/23 19:45:09 by ttresori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_ls.h"
 
-int		check_dir(char *arg, t_ls *ls)
+int		check_dir(char *arg)
 {
 	DIR	*rep;
 
 	if (!(rep = opendir(arg)))
 	{
-		if (errno != 2)
-			stock_error(ls, arg);
-		else
-			stock_error_dir(ls, arg);
+	//	ft_putchar('b');
+		if (errno == 2)
+			perror(ft_strjoin("ls: ", arg));
 		return (0);
 	}
 	else

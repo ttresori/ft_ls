@@ -6,7 +6,7 @@
 #    By: carmand <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/22 21:43:02 by carmand           #+#    #+#              #
-#    Updated: 2017/07/11 05:08:31 by ttresori         ###   ########.fr        #
+#    Updated: 2017/10/23 19:51:06 by ttresori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC =	main.c \
 		sort_dir.c \
 		sort_dir_t.c \
 		sort_error.c \
-		help_ls_option.c
+		#help_ls_option.c
 
 TMP = $(SRC:.c=.o)
 
